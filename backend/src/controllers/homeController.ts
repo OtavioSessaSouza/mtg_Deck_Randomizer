@@ -1,9 +1,7 @@
 exports.home = async(req,res)=>{
     try {
         const functions = {
-            "cards" : ["/cards","/cards/random","/cards/randomCM"],
-            "sets" : ["/sets"],
-            "build" : ["/build"]
+            "Build deck at" : ["/build"]
         } ; 
         res.send(functions);
     } catch (error) {
