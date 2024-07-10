@@ -1,11 +1,10 @@
 import express from 'express';
 const app = express();
+app.use(express.json());
 const port = 3000;
 
 
 const routes = require('./routes');
-
-app.use(express.json());
 app.use(routes);
 
 

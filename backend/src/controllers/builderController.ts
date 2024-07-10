@@ -1,14 +1,14 @@
 import { ScryfallCard } from "@scryfall/api-types";
+import { Request, Response } from "express";
 
 
-exports.BuildCommander = async(req,res)=>{
+exports.BuildCommander = async(req : Request, res : Response)=>{
     try {
-        const randoComander = await randomCM(); // get a random commander
-        res.send(await buildDeck(randoComander));
-        
+        const randomComander = await randomCM(); // get a random commander
+        res.status(200).send(await buildDeck(randomComander));
     } catch (error) {
-        res.send('Error');
-        console.log(error);
+      console.log(error);
+      res.status(400).send({ message: error.message });
     }
 }
 
@@ -21,16 +21,15 @@ async function randomCM(){
       const randomCM: ScryfallCard.Any = await response.json();
       return(randomCM);
     } catch (error) {
-      console.log(error)
       return error;
     }
 };
 
-//build deck
 
+//build deck
 async function buildDeck(commander){
   try {
-    const {color_identity}=commander;//get his info
+    const {color_identity}=commander;//get his color identity
     const ci = color_identity.toString().replace(',','');
     const url = `https://api.scryfall.com/cards/search?order=cmc&unique&q=commander%3A${ci}+%28game%3Apaper%29`;
     const cardlist = await getCards(url);
@@ -38,7 +37,6 @@ async function buildDeck(commander){
     deck.push(commander);
     return deck;
   } catch (error) {
-    console.log(error)
     return error;
   }
 };
@@ -59,8 +57,7 @@ async function getCards(url){
       return cardsListN;
     }
   } catch (error) {
-    console.log(error);
-    return;
+    return error;
   } 
 }
 
@@ -70,12 +67,15 @@ async function getRandomNumber(num) {
 }
 
 
-async function setDeck(cardlist,size = 99) {
-  const deck =[];
-  for(let i= 0;i < size;i++){
-    let temp = await getRandomNumber(cardlist.length);
-    deck.push(cardlist[temp]);
+async function setDeck(cardlist,size = 59) {
+  try {
+    const deck =[];
+    for(let i= 0;i < size;i++){
+      let temp = await getRandomNumber(cardlist.length);
+      deck.push(cardlist[temp]);
+    }
+    return deck;
+  } catch (error) {
+    return error;
   }
-  return deck;
-
 }
