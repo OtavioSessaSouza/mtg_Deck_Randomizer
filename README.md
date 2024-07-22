@@ -38,6 +38,8 @@ to do list:
 
 
     Backend:
+        make a tetst route for a card(done) 
+        make a route from backend send a randon commander(done)
         Get cards from a commander user give.
         Change the number of cards the api gets at random.
         make a Front end

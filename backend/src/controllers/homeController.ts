@@ -3,7 +3,8 @@ import { Request, Response } from "express";
 exports.home = async(req : Request, res : Response)=>{
     try {
         const functions = {
-            "Build deck at" : ["/build"]
+            "Build deck at" : ["/build"],
+            "cards" : ["/testcard","/randomCM"]
         } ; 
         res.status(200).send(functions);
     } catch (error) {

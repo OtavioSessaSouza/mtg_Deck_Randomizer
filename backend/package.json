@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@scryfall/api-types": "^1.0.0-alpha.4",
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "typescript": "^5.5.3"
   },
